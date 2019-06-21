@@ -15,11 +15,10 @@ class PokemonTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -43,24 +42,21 @@ class PokemonTableViewController: UITableViewController {
         if editingStyle == .delete {
             pokemonController.pokemonList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "ShowPokemonSegue" {
             guard let pokemonDetailVC = segue.destination as? PokemonDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow else { return }
             pokemonDetailVC.searchBar.isHidden = true
             pokemonDetailVC.savePokemonButton.isHidden = true
             pokemonDetailVC.pokemon = pokemonController.pokemonList[indexPath.row]
+        } else if segue.identifier == "ShowSearchSegue" {
+            guard let pokemonDetailVC = segue.destination as? PokemonDetailViewController else { return }
+            pokemonDetailVC.pokemonController = pokemonController
         }
     }
-
-
 }
