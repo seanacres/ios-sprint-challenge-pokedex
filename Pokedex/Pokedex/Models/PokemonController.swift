@@ -22,7 +22,6 @@ class PokemonController {
         
         let searchURL = baseURL.appendingPathComponent("\(named.lowercased())")
         let request = URLRequest(url: searchURL)
-        print(request)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let _ = error {
@@ -34,7 +33,6 @@ class PokemonController {
                 completion(.failure(.badData))
                 return
             }
-            print(data)
             
             let jsonDecoder = JSONDecoder()
             do {

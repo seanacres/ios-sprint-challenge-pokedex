@@ -18,26 +18,30 @@ class PokemonDetailViewController: UIViewController {
     @IBOutlet weak var pokemonAbilities: UILabel!
     @IBOutlet weak var savePokemonButton: UIButton!
     
-    var pokemon: Pokemon? {
-        didSet {
-            updateViews()
-        }
-    }
+    var pokemon: Pokemon?
     var pokemonController: PokemonController?
+    var isSearch: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        // Do any additional setup after loading the view.
+        updateViews()
     }
     
     @IBAction func savePokemonButtonTapped(_ sender: Any) {
         guard let pokemonController = pokemonController, let pokemon = pokemon else { return }
         pokemonController.savePokemonToList(pokemon: pokemon)
+        navigationController?.popViewController(animated: true)
     }
     
     func updateViews() {
         guard let pokemon = pokemon else { return }
+        
+        if !isSearch {
+            searchBar.isHidden = true
+            savePokemonButton.isHidden = true
+        }
+        
         pokemonName.text = pokemon.name.capitalized
         pokemonID.text = "ID: \(pokemon.id)"
         
@@ -65,6 +69,7 @@ extension PokemonDetailViewController: UISearchBarDelegate {
             if let pokemon = try? result.get() {
                 DispatchQueue.main.async {
                     self.pokemon = pokemon
+                    self.updateViews()
                 }
             } else {
                 print(result)

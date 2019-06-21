@@ -33,7 +33,7 @@ class PokemonTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell", for: indexPath)
 
         let pokemon = pokemonController.pokemonList[indexPath.row]
-        cell.textLabel?.text = pokemon.name
+        cell.textLabel?.text = pokemon.name.capitalized
 
         return cell
     }
@@ -51,9 +51,10 @@ class PokemonTableViewController: UITableViewController {
         if segue.identifier == "ShowPokemonSegue" {
             guard let pokemonDetailVC = segue.destination as? PokemonDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow else { return }
-            pokemonDetailVC.searchBar.isHidden = true
-            pokemonDetailVC.savePokemonButton.isHidden = true
+//            pokemonDetailVC.searchBar.isHidden = true
+//            pokemonDetailVC.savePokemonButton.isHidden = true
             pokemonDetailVC.pokemon = pokemonController.pokemonList[indexPath.row]
+            pokemonDetailVC.isSearch = false
         } else if segue.identifier == "ShowSearchSegue" {
             guard let pokemonDetailVC = segue.destination as? PokemonDetailViewController else { return }
             pokemonDetailVC.pokemonController = pokemonController
