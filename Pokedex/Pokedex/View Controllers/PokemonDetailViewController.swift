@@ -55,14 +55,22 @@ class PokemonDetailViewController: UIViewController {
         pokemonID.text = "ID: \(pokemon.id)"
         
         var pokemonTypesString = "Types: "
-        for x in pokemon.types {
-            pokemonTypesString.append("\(x.type.name.capitalized) ")
+        for (index, y) in pokemon.types.enumerated() {
+            if index == pokemon.types.endIndex-1 {
+                pokemonTypesString.append("\(y.type.name.capitalized)")
+            } else {
+                pokemonTypesString.append("\(y.type.name.capitalized), ")
+            }
         }
         pokemonTypes.text = pokemonTypesString
         
         var pokemonAbilitiesString = "Abilities: "
-        for x in pokemon.abilities {
-            pokemonAbilitiesString.append("\(x.ability.name.capitalized), ")
+        for (index, y) in pokemon.abilities.enumerated() {
+            if index == pokemon.abilities.endIndex-1 {
+                pokemonAbilitiesString.append("\(y.ability.name.capitalized)")
+            } else {
+                pokemonAbilitiesString.append("\(y.ability.name.capitalized), ")
+            }
         }
         pokemonAbilities.text = pokemonAbilitiesString
         
