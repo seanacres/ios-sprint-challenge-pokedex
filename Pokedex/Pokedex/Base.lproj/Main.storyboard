@@ -13,7 +13,7 @@
         <!--Pokedex-->
         <scene sceneID="8UC-hD-TRw">
             <objects>
-                <tableViewController id="ibe-Hk-ruU" sceneMemberID="viewController">
+                <tableViewController id="ibe-Hk-ruU" customClass="PokemonTableViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="FiV-oc-QWX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,7 +60,7 @@
         <!--Pokemon Search-->
         <scene sceneID="Fe3-hy-DPL">
             <objects>
-                <viewController id="qCE-Mb-a34" sceneMemberID="viewController">
+                <viewController id="qCE-Mb-a34" customClass="PokemonDetailViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="d4j-d0-tZI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,6 +111,9 @@
                                         <rect key="frame" x="131" y="601" width="120" height="33"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="Save Pokemon"/>
+                                        <connections>
+                                            <action selector="savePokemonButtonTapped:" destination="qCE-Mb-a34" eventType="touchUpInside" id="vYV-KV-XHD"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -133,6 +136,15 @@
                         <viewLayoutGuide key="safeArea" id="5lt-bb-skj"/>
                     </view>
                     <navigationItem key="navigationItem" title="Pokemon Search" id="FOb-Us-giz"/>
+                    <connections>
+                        <outlet property="imageView" destination="UOh-Ya-rUq" id="p7r-fR-zhG"/>
+                        <outlet property="pokemonAbilities" destination="z8V-aD-3xr" id="3Uw-Pl-0hl"/>
+                        <outlet property="pokemonID" destination="fuz-xI-Bqf" id="5pk-gW-2iY"/>
+                        <outlet property="pokemonName" destination="PZE-Ln-BQV" id="Ylg-C7-goc"/>
+                        <outlet property="pokemonTypes" destination="ZWh-C5-H8X" id="8pa-Af-lm6"/>
+                        <outlet property="savePokemonButton" destination="5gT-gQ-yae" id="zdq-mP-qVe"/>
+                        <outlet property="searchBar" destination="ojU-K0-ENN" id="Euq-Ls-kV3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Z2-q3-yga" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
