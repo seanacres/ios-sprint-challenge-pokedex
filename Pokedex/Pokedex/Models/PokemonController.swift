@@ -9,9 +9,39 @@
 import Foundation
 
 enum NetworkError: Error {
-    case noAuth
-    case badAuth
     case otherError
     case badData
     case noDecode
+}
+
+class PokemonController {
+    let baseURL = URL(string: "https://pokeapi.co/api/v2")!
+    var pokemonList: [Pokemon] = []
+    
+    func searchForPokemon(named: String, completion: @escaping (Result<Pokemon, NetworkError>) -> ()) {
+        
+        let searchURL = baseURL.appendingPathComponent("\(named.lowercased())")
+        let request = URLRequest(url: searchURL)
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let _ = error {
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
+            let jsonDecoder = JSONDecoder()
+            do {
+                let pokemon = try jsonDecoder.decode(Pokemon.self, from: data)
+                completion(.success(pokemon))
+            } catch {
+                completion(.failure(.noDecode))
+            }
+            }.resume()
+    }
+    
 }
