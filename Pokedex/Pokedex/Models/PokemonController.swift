@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum NetworkError: Error {
     case otherError
@@ -41,6 +42,26 @@ class PokemonController {
             } catch {
                 completion(.failure(.noDecode))
             }
+            }.resume()
+    }
+    
+    func fetchImage(at urlString: String, completion: @escaping (Result<UIImage, NetworkError>) -> ()) {
+        let imageURL = URL(string: urlString)!
+        let request = URLRequest(url: imageURL)
+        
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            if let _ = error {
+                completion(.failure(.otherError))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(.badData))
+                return
+            }
+            
+            let image = UIImage(data: data)!
+            completion(.success(image))
             }.resume()
     }
     

@@ -35,7 +35,7 @@ class PokemonDetailViewController: UIViewController {
     }
     
     func updateViews() {
-        guard let pokemon = pokemon else { return }
+        guard let pokemon = pokemon, let pokemonController = pokemonController else { return }
         
         if !isSearch {
             searchBar.isHidden = true
@@ -56,8 +56,18 @@ class PokemonDetailViewController: UIViewController {
             pokemonAbilitiesString.append("\(x.ability.name.capitalized), ")
         }
         pokemonAbilities.text = pokemonAbilitiesString
+        
+        pokemonController.fetchImage(at: pokemon.sprites.imageURL) { (result) in
+            if let image = try? result.get() {
+                DispatchQueue.main.async {
+                    self.imageView.image = image
+                }
+            } else {
+                print(result)
+            }
+        }
+        
     }
-
 }
 
 extension PokemonDetailViewController: UISearchBarDelegate {
