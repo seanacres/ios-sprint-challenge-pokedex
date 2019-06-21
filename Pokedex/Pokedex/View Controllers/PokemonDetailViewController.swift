@@ -18,25 +18,57 @@ class PokemonDetailViewController: UIViewController {
     @IBOutlet weak var pokemonAbilities: UILabel!
     @IBOutlet weak var savePokemonButton: UIButton!
     
-    var pokemon: Pokemon?
+    var pokemon: Pokemon? {
+        didSet {
+            updateViews()
+        }
+    }
+    var pokemonController: PokemonController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        searchBar.delegate = self
         // Do any additional setup after loading the view.
     }
     
     @IBAction func savePokemonButtonTapped(_ sender: Any) {
+        guard let pokemonController = pokemonController, let pokemon = pokemon else { return }
+        pokemonController.savePokemonToList(pokemon: pokemon)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func updateViews() {
+        guard let pokemon = pokemon else { return }
+        pokemonName.text = pokemon.name.capitalized
+        pokemonID.text = "ID: \(pokemon.id)"
+        
+        var pokemonTypesString = ""
+        for x in pokemon.types {
+            pokemonTypesString.append("\(x.type.name.capitalized) ")
+        }
+        pokemonTypes.text = pokemonTypesString
+        
+        var pokemonAbiltiesString = ""
+        for x in pokemon.abilties {
+            pokemonAbiltiesString.append("\(x.ability.name.capitalized) ")
+        }
+        pokemonAbilities.text = pokemonAbiltiesString
     }
-    */
 
+}
+
+extension PokemonDetailViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let pokemonController = pokemonController,
+            let searchTerm = searchBar.text,
+            searchBar.text != "" else { return }
+        pokemonController.searchForPokemon(named: searchTerm) { (result) in
+            if let pokemon = try? result.get() {
+                DispatchQueue.main.async {
+                    self.pokemon = pokemon
+                }
+            } else {
+                print(result)
+            }
+        }
+    }
 }
