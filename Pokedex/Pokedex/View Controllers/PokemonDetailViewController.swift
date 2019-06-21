@@ -25,6 +25,13 @@ class PokemonDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
+ 
+        pokemonName.text = ""
+        pokemonID.text = ""
+        pokemonTypes.text = ""
+        pokemonAbilities.text = ""
+        savePokemonButton.isHidden = true
+        
         updateViews()
     }
     
@@ -40,6 +47,8 @@ class PokemonDetailViewController: UIViewController {
         if !isSearch {
             searchBar.isHidden = true
             savePokemonButton.isHidden = true
+        } else {
+            savePokemonButton.isHidden = false
         }
         
         pokemonName.text = pokemon.name.capitalized
