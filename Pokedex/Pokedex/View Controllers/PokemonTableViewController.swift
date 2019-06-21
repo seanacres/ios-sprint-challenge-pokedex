@@ -51,8 +51,6 @@ class PokemonTableViewController: UITableViewController {
         if segue.identifier == "ShowPokemonSegue" {
             guard let pokemonDetailVC = segue.destination as? PokemonDetailViewController,
                 let indexPath = tableView.indexPathForSelectedRow else { return }
-//            pokemonDetailVC.searchBar.isHidden = true
-//            pokemonDetailVC.savePokemonButton.isHidden = true
             pokemonDetailVC.pokemon = pokemonController.pokemonList[indexPath.row]
             pokemonDetailVC.isSearch = false
         } else if segue.identifier == "ShowSearchSegue" {
