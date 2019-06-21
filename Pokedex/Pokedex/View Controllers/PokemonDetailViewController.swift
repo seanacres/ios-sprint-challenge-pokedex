@@ -56,7 +56,7 @@ class PokemonDetailViewController: UIViewController {
         pokemonTypes.text = pokemonController.stringTypes(from: pokemon)
         pokemonAbilities.text = pokemonController.stringAbilties(from: pokemon)
         
-        pokemonController.fetchImage(at: pokemon.sprites.imageURL) { (result) in
+        pokemonController.fetchImage(at: pokemon.image.imageURL) { (result) in
             if let image = try? result.get() {
                 DispatchQueue.main.async {
                     self.imageView.image = image

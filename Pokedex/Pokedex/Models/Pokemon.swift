@@ -13,7 +13,15 @@ struct Pokemon: Codable {
     let id: Int
     let abilities: [PokemonAbilities]
     let types: [PokemonTypes]
-    let sprites: PokemonImages
+    let image: PokemonImages
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case id
+        case abilities
+        case types
+        case image = "sprites"
+    }
 }
 
 struct PokemonAbilities: Codable {
