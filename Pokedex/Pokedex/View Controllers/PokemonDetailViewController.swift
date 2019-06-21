@@ -41,17 +41,17 @@ class PokemonDetailViewController: UIViewController {
         pokemonName.text = pokemon.name.capitalized
         pokemonID.text = "ID: \(pokemon.id)"
         
-        var pokemonTypesString = ""
+        var pokemonTypesString = "Types: "
         for x in pokemon.types {
             pokemonTypesString.append("\(x.type.name.capitalized) ")
         }
         pokemonTypes.text = pokemonTypesString
         
-        var pokemonAbiltiesString = ""
-        for x in pokemon.abilties {
-            pokemonAbiltiesString.append("\(x.ability.name.capitalized) ")
+        var pokemonAbilitiesString = "Abilities: "
+        for x in pokemon.abilities {
+            pokemonAbilitiesString.append("\(x.ability.name.capitalized), ")
         }
-        pokemonAbilities.text = pokemonAbiltiesString
+        pokemonAbilities.text = pokemonAbilitiesString
     }
 
 }

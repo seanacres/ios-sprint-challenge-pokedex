@@ -15,13 +15,14 @@ enum NetworkError: Error {
 }
 
 class PokemonController {
-    let baseURL = URL(string: "https://pokeapi.co/api/v2")!
+    let baseURL = URL(string: "https://pokeapi.co/api/v2/pokemon")!
     var pokemonList: [Pokemon] = []
     
     func searchForPokemon(named: String, completion: @escaping (Result<Pokemon, NetworkError>) -> ()) {
         
         let searchURL = baseURL.appendingPathComponent("\(named.lowercased())")
         let request = URLRequest(url: searchURL)
+        print(request)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let _ = error {
@@ -33,6 +34,7 @@ class PokemonController {
                 completion(.failure(.badData))
                 return
             }
+            print(data)
             
             let jsonDecoder = JSONDecoder()
             do {
