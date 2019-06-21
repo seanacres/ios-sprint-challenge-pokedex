@@ -44,4 +44,7 @@ class PokemonController {
             }.resume()
     }
     
+    func savePokemonToList(pokemon: Pokemon) {
+        pokemonList.append(pokemon)
+    }
 }
