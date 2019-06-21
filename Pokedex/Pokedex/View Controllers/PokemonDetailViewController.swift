@@ -53,26 +53,8 @@ class PokemonDetailViewController: UIViewController {
         
         pokemonName.text = pokemon.name.capitalized
         pokemonID.text = "ID: \(pokemon.id)"
-        
-        var pokemonTypesString = "Types: "
-        for (index, y) in pokemon.types.enumerated() {
-            if index == pokemon.types.endIndex-1 {
-                pokemonTypesString.append("\(y.type.name.capitalized)")
-            } else {
-                pokemonTypesString.append("\(y.type.name.capitalized), ")
-            }
-        }
-        pokemonTypes.text = pokemonTypesString
-        
-        var pokemonAbilitiesString = "Abilities: "
-        for (index, y) in pokemon.abilities.enumerated() {
-            if index == pokemon.abilities.endIndex-1 {
-                pokemonAbilitiesString.append("\(y.ability.name.capitalized)")
-            } else {
-                pokemonAbilitiesString.append("\(y.ability.name.capitalized), ")
-            }
-        }
-        pokemonAbilities.text = pokemonAbilitiesString
+        pokemonTypes.text = pokemonController.stringTypes(from: pokemon)
+        pokemonAbilities.text = pokemonController.stringAbilties(from: pokemon)
         
         pokemonController.fetchImage(at: pokemon.sprites.imageURL) { (result) in
             if let image = try? result.get() {

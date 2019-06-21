@@ -65,6 +65,30 @@ class PokemonController {
             }.resume()
     }
     
+    func stringAbilties(from pokemon: Pokemon) -> String {
+        var pokemonAbilitiesString = "Abilities: "
+        for (index, y) in pokemon.abilities.enumerated() {
+            if index == pokemon.abilities.endIndex-1 {
+                pokemonAbilitiesString.append("\(y.ability.name.capitalized)")
+            } else {
+                pokemonAbilitiesString.append("\(y.ability.name.capitalized), ")
+            }
+        }
+        return pokemonAbilitiesString
+    }
+    
+    func stringTypes(from pokemon: Pokemon) -> String {
+        var pokemonTypesString = "Types: "
+        for (index, y) in pokemon.types.enumerated() {
+            if index == pokemon.types.endIndex-1 {
+                pokemonTypesString.append("\(y.type.name.capitalized)")
+            } else {
+                pokemonTypesString.append("\(y.type.name.capitalized), ")
+            }
+        }
+        return pokemonTypesString
+    }
+    
     func savePokemonToList(pokemon: Pokemon) {
         pokemonList.append(pokemon)
     }
