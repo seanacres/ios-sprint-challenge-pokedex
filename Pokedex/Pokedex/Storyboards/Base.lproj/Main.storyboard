@@ -13,19 +13,14 @@
         <!--Pokedex-->
         <scene sceneID="oMW-UX-SEI">
             <objects>
-                <tableViewController id="mwv-Ci-nFg" sceneMemberID="viewController">
+                <tableViewController id="mwv-Ci-nFg" customClass="PokemonTableViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bT5-hw-Wp5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Search by name or ID:" id="33l-nK-WNl">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PokemonCell" textLabel="DBD-E6-TgZ" style="IBUITableViewCellStyleDefault" id="2mX-ub-zGr">
-                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2mX-ub-zGr" id="sct-ch-Shy">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -41,7 +36,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="DNE-0a-yHz" kind="show" id="Ch4-j6-LzM"/>
+                                    <segue destination="DNE-0a-yHz" kind="show" identifier="ShowPokemon" id="Ch4-j6-LzM"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -50,22 +45,28 @@
                             <outlet property="delegate" destination="mwv-Ci-nFg" id="Ya3-ia-dGl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Pokedex" id="myd-0f-g8J"/>
+                    <navigationItem key="navigationItem" title="Pokedex" id="myd-0f-g8J">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="JaA-0C-p0u">
+                            <connections>
+                                <segue destination="DNE-0a-yHz" kind="show" identifier="SearchPokemon" id="sMt-zo-Uha"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIb-Gz-mic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="323" y="-5"/>
         </scene>
-        <!--View Controller-->
+        <!--Pokemon Search-->
         <scene sceneID="1gO-hf-3Bx">
             <objects>
-                <viewController id="DNE-0a-yHz" sceneMemberID="viewController">
+                <viewController id="DNE-0a-yHz" customClass="PokemonDetailViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wwe-w5-lTt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Tc5-R7-EIN">
-                                <rect key="frame" x="20" y="160" width="374" height="568.5"/>
+                                <rect key="frame" x="20" y="213.5" width="374" height="568.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="51" translatesAutoresizingMaskIntoConstraints="NO" id="lhl-uS-gL9">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="461"/>
@@ -113,21 +114,42 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgu-ND-HMq">
-                                <rect key="frame" x="156.5" y="748.5" width="101" height="53.5"/>
+                                <rect key="frame" x="155.5" y="802" width="103" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Save Pokemon"/>
+                                <connections>
+                                    <action selector="savePokemonButtonTapped:" destination="DNE-0a-yHz" eventType="touchUpInside" id="JcJ-N8-6lZ"/>
+                                </connections>
                             </button>
+                            <searchBar contentMode="redraw" placeholder="Search by name or ID:" translatesAutoresizingMaskIntoConstraints="NO" id="33l-nK-WNl">
+                                <rect key="frame" x="0.0" y="140" width="414" height="53.5"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Tc5-R7-EIN" firstAttribute="top" secondItem="aOR-4G-h08" secondAttribute="top" constant="20" id="Exh-2X-zG2"/>
+                            <constraint firstItem="33l-nK-WNl" firstAttribute="leading" secondItem="aOR-4G-h08" secondAttribute="leading" id="DPe-Hf-KnF"/>
+                            <constraint firstItem="33l-nK-WNl" firstAttribute="trailing" secondItem="aOR-4G-h08" secondAttribute="trailing" id="O9v-KO-jJc"/>
                             <constraint firstItem="pgu-ND-HMq" firstAttribute="centerX" secondItem="Wwe-w5-lTt" secondAttribute="centerX" id="PZz-W9-Uot"/>
                             <constraint firstItem="aOR-4G-h08" firstAttribute="trailing" secondItem="Tc5-R7-EIN" secondAttribute="trailing" constant="20" id="Yq8-Cq-i6t"/>
                             <constraint firstItem="pgu-ND-HMq" firstAttribute="top" secondItem="Tc5-R7-EIN" secondAttribute="bottom" constant="20" id="Zi8-Or-h1V"/>
                             <constraint firstItem="Tc5-R7-EIN" firstAttribute="leading" secondItem="aOR-4G-h08" secondAttribute="leading" constant="20" id="cs7-tK-RhU"/>
-                            <constraint firstItem="aOR-4G-h08" firstAttribute="bottom" secondItem="pgu-ND-HMq" secondAttribute="bottom" constant="60" id="jkc-42-Nsg"/>
+                            <constraint firstItem="aOR-4G-h08" firstAttribute="bottom" secondItem="pgu-ND-HMq" secondAttribute="bottom" constant="30" id="jkc-42-Nsg"/>
+                            <constraint firstItem="Tc5-R7-EIN" firstAttribute="top" secondItem="33l-nK-WNl" secondAttribute="bottom" constant="20" id="os5-U4-6Ir"/>
+                            <constraint firstItem="33l-nK-WNl" firstAttribute="top" secondItem="aOR-4G-h08" secondAttribute="top" id="xJq-0D-WWE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aOR-4G-h08"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Pokemon Search" id="TUH-ij-zCK"/>
+                    <connections>
+                        <outlet property="pokemonAbilitiesLabel" destination="Hej-gx-C3G" id="v6h-Vk-qjn"/>
+                        <outlet property="pokemonIDLabel" destination="ZRp-xI-8kH" id="VGO-M5-P8q"/>
+                        <outlet property="pokemonImageView" destination="jk2-kX-ebA" id="xZf-UM-ujO"/>
+                        <outlet property="pokemonNameLabel" destination="ksV-kL-HAK" id="9Qq-Xl-wlx"/>
+                        <outlet property="pokemonTypesLabel" destination="wFO-5h-xcB" id="XjZ-qe-Dxo"/>
+                        <outlet property="savePokemonButton" destination="pgu-ND-HMq" id="RJ8-5H-803"/>
+                        <outlet property="searchBar" destination="33l-nK-WNl" id="nVv-Q6-CPl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L0c-ID-Xn4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -150,4 +172,7 @@
             <point key="canvasLocation" x="-596" y="-5"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="sMt-zo-Uha"/>
+    </inferredMetricsTieBreakers>
 </document>
