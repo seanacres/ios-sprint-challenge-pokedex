@@ -92,6 +92,7 @@ extension PokemonDetailViewController: UISearchBarDelegate {
                 DispatchQueue.main.async {
                     self.pokemon = pokemon
                     self.updateViews()
+                    self.searchBar.endEditing(true)
                 }
             }
         }
