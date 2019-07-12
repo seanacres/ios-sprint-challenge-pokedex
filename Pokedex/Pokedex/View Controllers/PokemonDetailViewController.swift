@@ -54,7 +54,7 @@ class PokemonDetailViewController: UIViewController {
             }
             
             // set up abilties label
-            pokemonAbilitiesLabel.text = "Abilties: "
+            pokemonAbilitiesLabel.text = "Abilities: "
             for (index, element) in pokemon.abilities.enumerated() {
                 // only add comma if not the last element
                 if index == pokemon.abilities.endIndex-1 {
