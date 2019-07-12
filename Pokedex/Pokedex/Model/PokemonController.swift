@@ -31,7 +31,7 @@ class PokemonController {
     
     // search by name or id
     func searchForPokemon(searchTerm: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void) {
-        let requestURL = baseURL.appendingPathComponent(searchTerm)
+        let requestURL = baseURL.appendingPathComponent(searchTerm.lowercased())
         var request = URLRequest(url: requestURL)
         request.httpMethod = HTTPMethod.get.rawValue
         
