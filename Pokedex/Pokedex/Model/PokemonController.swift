@@ -73,4 +73,12 @@ class PokemonController {
     func savePokemon(_ pokemon: Pokemon) {
         savedPokemon.append(pokemon)
     }
+    
+    // remove saved pokemon
+    func deletePokemon(_ pokemon: Pokemon) {
+        // find pokemon to delete by id and remove from array
+        if let index = savedPokemon.firstIndex(where: { $0.id == pokemon.id }) {
+            savedPokemon.remove(at: index)
+        }
+    }
 }
