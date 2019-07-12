@@ -30,6 +30,13 @@ class PokemonController {
     let baseURL = URL(string: "https://pokeapi.co/api/v2/pokemon")!
     var savedPokemon: [Pokemon] = []
     
+    // set up url for saved pokemon file
+    var savedPokemonURL: URL? {
+        let fileManager = FileManager.default
+        guard let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
+        return documents.appendingPathComponent("SavedPokemon.plist")
+    }
+    
     // search by name or id
     func searchForPokemon(searchTerm: String, completion: @escaping (Result<Pokemon, NetworkError>) -> Void) {
         let requestURL = baseURL.appendingPathComponent(searchTerm.lowercased())
@@ -70,19 +77,6 @@ class PokemonController {
         }.resume()
     }
     
-    // save pokemon
-    func savePokemon(_ pokemon: Pokemon) {
-        savedPokemon.append(pokemon)
-    }
-    
-    // remove saved pokemon
-    func deletePokemon(_ pokemon: Pokemon) {
-        // find pokemon to delete by id and remove from array
-        if let index = savedPokemon.firstIndex(where: { $0.id == pokemon.id }) {
-            savedPokemon.remove(at: index)
-        }
-    }
-    
     // fetch image from URL
     func fetchImage(at urlString: String, completion: @escaping (Result<UIImage, NetworkError>) -> Void) {
         guard let imageURL = URL(string: urlString) else  {
@@ -111,5 +105,47 @@ class PokemonController {
             
             completion(.success(image))
             }.resume()
+    }
+    
+    // save pokemon
+    func savePokemon(_ pokemon: Pokemon) {
+        savedPokemon.append(pokemon)
+        saveToPersistentStore()
+    }
+    
+    // remove saved pokemon
+    func deletePokemon(_ pokemon: Pokemon) {
+        // find pokemon to delete by id and remove from array
+        if let index = savedPokemon.firstIndex(where: { $0.id == pokemon.id }) {
+            savedPokemon.remove(at: index)
+            saveToPersistentStore()
+        }
+    }
+    
+    // load saved pokemon
+    func loadFromPersistentStore() {
+        guard let url = savedPokemonURL else { return }
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = PropertyListDecoder()
+            let decodedPokemon = try decoder.decode([Pokemon].self, from: data)
+            self.savedPokemon = decodedPokemon
+            print("loaded pokemon from store")
+        } catch {
+            NSLog("Unable to load pokemon from store: \(error)")
+        }
+    }
+    
+    // save pokemon list
+    func saveToPersistentStore() {
+        guard let url = savedPokemonURL else { return }
+        
+        do {
+            let encoder = PropertyListEncoder()
+            let pokemonData = try encoder.encode(savedPokemon)
+            try pokemonData.write(to: url)
+        } catch {
+            NSLog("error saving to store: \(error)")
+        }
     }
 }
