@@ -18,9 +18,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Gjy-Lc-Zaz">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wob-xZ-tpx">
+                                    <rect key="frame" x="20" y="8" width="169.5" height="28"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sort by:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkS-gZ-HgY">
+                                            <rect key="frame" x="0.0" y="0.0" width="60.5" height="28"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Aar-hA-0eG">
+                                            <rect key="frame" x="68.5" y="0.0" width="101" height="29"/>
+                                            <segments>
+                                                <segment title="Name"/>
+                                                <segment title="ID"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="sortSelectionChanged:" destination="mwv-Ci-nFg" eventType="valueChanged" id="0ej-y8-uwK"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="wob-xZ-tpx" firstAttribute="leading" secondItem="Gjy-Lc-Zaz" secondAttribute="leading" constant="20" id="Hm8-vE-Etb"/>
+                                <constraint firstItem="wob-xZ-tpx" firstAttribute="centerY" secondItem="Gjy-Lc-Zaz" secondAttribute="centerY" id="wHR-8o-O9t"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PokemonCell" textLabel="DBD-E6-TgZ" style="IBUITableViewCellStyleDefault" id="2mX-ub-zGr">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2mX-ub-zGr" id="sct-ch-Shy">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -52,10 +84,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="sortControl" destination="Aar-hA-0eG" id="Uxd-ZG-371"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hIb-Gz-mic" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="323" y="-5"/>
+            <point key="canvasLocation" x="321.73913043478262" y="-5.3571428571428568"/>
         </scene>
         <!--Pokemon Search-->
         <scene sceneID="1gO-hf-3Bx">
