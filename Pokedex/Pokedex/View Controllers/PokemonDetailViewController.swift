@@ -37,7 +37,7 @@ class PokemonDetailViewController: UIViewController {
     }
     
     private func updateViews() {
-        if let pokemon = pokemon {
+        if let pokemon = pokemon, let pokemonController = pokemonController {
             title = pokemon.name.capitalized
             pokemonNameLabel.text = pokemon.name.capitalized
             pokemonIDLabel.text = "ID: \(pokemon.id)"
@@ -46,7 +46,7 @@ class PokemonDetailViewController: UIViewController {
             pokemonTypesLabel.text = "Types: "
             for (index, element) in pokemon.types.enumerated() {
                 // only add comma if not the last element
-                if index == pokemon.abilities.endIndex-1 {
+                if index == pokemon.types.endIndex-1 {
                     pokemonTypesLabel.text?.append("\(element.type.name.capitalized)")
                 } else {
                     pokemonTypesLabel.text?.append("\(element.type.name.capitalized), ")
@@ -64,11 +64,21 @@ class PokemonDetailViewController: UIViewController {
                 }
             }
             
-            savePokemonButton.isHidden = false
             // hide search bar and save button if isSearch is false
             if !isSearch {
                 savePokemonButton.isHidden = true
                 searchBar.isHidden = true
+            } else {
+                savePokemonButton.isHidden = false
+            }
+            
+            // fetch image
+            pokemonController.fetchImage(at: pokemon.image.imageURL) { (result) in
+                if let image = try? result.get() {
+                    DispatchQueue.main.async {
+                        self.pokemonImageView.image = image
+                    }
+                }
             }
         } else {
             pokemonNameLabel.text = ""
