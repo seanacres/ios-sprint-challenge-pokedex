@@ -44,6 +44,7 @@ class PokemonTableViewController: UITableViewController {
         if editingStyle == .delete {
             // get the correct pokemon to delete
             let pokemon = sortedPokemon[indexPath.row]
+            
             pokemonController.deletePokemon(pokemon)
             sortedPokemon.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
