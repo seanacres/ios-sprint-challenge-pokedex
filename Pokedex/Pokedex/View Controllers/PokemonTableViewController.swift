@@ -14,7 +14,6 @@ class PokemonTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
     // MARK: - Table view data source
@@ -41,14 +40,20 @@ class PokemonTableViewController: UITableViewController {
         }
     }
 
-    /*
+
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        guard let pokemonDetailVC = segue.destination as? PokemonDetailViewController else { return }
+        
+        if segue.identifier == "ShowPokemon" {
+            guard let index = tableView.indexPathForSelectedRow else { return }
+            pokemonDetailVC.pokemonController = pokemonController
+            pokemonDetailVC.pokemon = pokemonController.savedPokemon[index.row]
+            pokemonDetailVC.isSearch = false
+        } else if segue.identifier == "SearchPokemon" {
+            pokemonDetailVC.pokemonController = pokemonController
+            pokemonDetailVC.isSearch = true
+        }
     }
-    */
-
 }
